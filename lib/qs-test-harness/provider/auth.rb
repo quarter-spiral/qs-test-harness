@@ -40,11 +40,25 @@ module Qs::Test::Harness::Provider
 
     def inject_into(parent)
       app = self.app
-      ::Auth::Client.class_eval do
-        alias raw_initialize initialize
-        define_method(:initialize) do |url, options = {}|
-          raw_initialize(url, options.merge(adapter: [:rack, app]))
+
+      appender_module = Module.new
+      appender_module.class_eval do
+        self.class.class_eval do
+          define_method(:_qs_app) {app}
         end
+        def self.included(base) # built-in Ruby hook for modules
+          app = _qs_app
+
+          base.class_eval do
+            original_method = instance_method(:initialize)
+            define_method(:initialize) do |url, options = {}|
+              original_method.bind(self).call(url, options.merge(adapter: [:rack, app]))
+            end
+          end
+        end
+      end
+      ::Auth::Client.class_eval do
+        include appender_module
       end
     end
 

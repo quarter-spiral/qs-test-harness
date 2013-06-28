@@ -34,7 +34,15 @@ module Qs
         when_ready_callbacks << block
       end
 
+      def self.reset!
+        @client = nil
+        @entity_factory = nil
+        @when_ready_callbacks = nil
+        @ready = false
+      end
+
       def self.setup!(&block)
+        reset!
         initializer = Initializer.new
         initializer.instance_eval(&block)
         @harness = new(initializer)

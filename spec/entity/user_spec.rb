@@ -2,13 +2,7 @@ require_relative '../spec_helper'
 
 class UserSpec < MiniTest::Spec
   before_all do
-    Qs::Test::Harness.setup! do
-      provide Qs::Test::Harness::Provider::Datastore
-      provide Qs::Test::Harness::Provider::Graph
-      provide Qs::Test::Harness::Provider::Auth
-
-      test Qs::Test::Harness::SampleApp
-    end
+    default_harness_setup!
   end
 
   describe Qs::Test::Harness::Entity::User do

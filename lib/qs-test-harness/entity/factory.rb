@@ -19,3 +19,4 @@ end
 
 require "qs-test-harness/entity/factory/user_factory"
 require "qs-test-harness/entity/factory/developer_factory"
+require "qs-test-harness/entity/factory/game_factory"

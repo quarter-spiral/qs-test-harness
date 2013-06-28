@@ -2,7 +2,7 @@ require_relative './spec_helper'
 
 class HarnessSpec < MiniTest::Spec
   before_all do
-    default_harness_setup!
+    basic_harness_setup!
   end
 
   describe Qs::Test::Harness do

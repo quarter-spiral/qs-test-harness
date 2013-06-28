@@ -21,7 +21,7 @@ end
 
 class EntitiesSpec < MiniTest::Spec
   before_all do
-    default_harness_setup! do
+    basic_harness_setup! do
       provide MockApp
     end
   end
