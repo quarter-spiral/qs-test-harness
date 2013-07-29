@@ -7,7 +7,11 @@ module Qs::Test::Harness::Provider
 
       augment_with(:graph)
 
+      # Initialize the ENV globals to make other providers happy that rely on them
+      system_access_app
+
       harness.entity_factory.register :user, ::Qs::Test::Harness::Entity::Factory::UserFactory
+      harness.entity_factory.register :app, ::Qs::Test::Harness::Entity::Factory::AppFactory
     end
 
     def app(*args)

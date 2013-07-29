@@ -1,3 +1,5 @@
+require 'uri'
+
 class Qs::Test::Harness::Entity
   class User
     include UUIDEntity
@@ -46,6 +48,12 @@ class Qs::Test::Harness::Entity
 
     def accept_tos!
       @factory.test_helpers.accept_tos!(to_hash).body
+    end
+
+    def logged_in_cookie
+      client = @factory.harness.provider(:auth).client
+      response = client.post "/login", body: URI.encode_www_form(name: name, password: password)
+      response.headers['Set-Cookie']
     end
 
     def to_hash

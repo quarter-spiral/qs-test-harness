@@ -20,8 +20,7 @@ module Qs::Test::Harness::Provider
     end
 
     def client
-      app = self.app
-      @client ||= Rack::Client.new {run app}
+      @client ||= ::Qs::Test::Harness::Client.new(app)
     end
 
     def inject_into(parent)
@@ -50,6 +49,14 @@ module Qs::Test::Harness::Provider
       parent.connection_class.class_eval do
         include appender_module
       end
+    end
+
+    def qs_client
+      return @qs_client if @qs_client
+
+      @qs_client = qs_client_class.new('http://example.com')
+      @qs_client.client.raw.adapter = adaptor
+      @qs_client
     end
 
     protected

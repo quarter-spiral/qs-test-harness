@@ -22,6 +22,7 @@ def default_harness_setup!(&block)
     provide Qs::Test::Harness::Provider::Graph
     provide Qs::Test::Harness::Provider::Auth
     provide Qs::Test::Harness::Provider::Devcenter
+    provide Qs::Test::Harness::Provider::Playercenter
 
     test Qs::Test::Harness::SampleApp
   end

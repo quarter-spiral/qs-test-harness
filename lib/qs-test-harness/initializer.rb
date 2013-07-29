@@ -10,8 +10,8 @@ class Qs::Test::Harness
       @providers << provider
     end
 
-    def test(app_under_test)
-      @app_under_test = app_under_test
+    def test(app_under_test, options = {})
+      @app_under_test = {app: app_under_test, options: options}
     end
   end
 end

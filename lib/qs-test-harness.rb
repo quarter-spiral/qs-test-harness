@@ -6,18 +6,25 @@ module Qs
       attr_reader :app
 
       def initialize(initializer)
-        @app = initializer.app_under_test.new
-
         @providers = []
         initializer.providers.uniq.each do |provider|
           @providers << provider.new(self)
+        end
+
+        app_under_test = initializer.app_under_test
+        app_class = app_under_test[:app]
+        if app_under_test[:options][:augment]
+          provider = Provider.from_app(app_class, @providers.map(&:callsign)).new(self)
+          @app = provider.app
+        else
+          @app = app_class.new
         end
 
         ready!
       end
 
       def client
-        @client ||= Client.new(self)
+        @client ||= Client.new(app)
       end
 
       def entity_factory
@@ -73,7 +80,6 @@ end
 
 require "qs-test-harness/version"
 require "qs-test-harness/response_enhancement"
-require "qs-test-harness/rack_client_enhancement"
 require "qs-test-harness/initializer"
 require "qs-test-harness/entity"
 require "qs-test-harness/client"

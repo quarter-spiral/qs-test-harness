@@ -17,6 +17,8 @@ class Qs::Test::Harness::Entity
   end
 end
 
+require "qs-test-harness/entity/factory/app_factory"
 require "qs-test-harness/entity/factory/user_factory"
 require "qs-test-harness/entity/factory/developer_factory"
 require "qs-test-harness/entity/factory/game_factory"
+require "qs-test-harness/entity/factory/player_factory"

@@ -8,6 +8,7 @@ class Qs::Test::Harness::Entity::Factory
 
     def create(options = {})
       user = @harness.entity_factory.create(:user)
+
       @harness.provider(:devcenter).client.authorize_with(@harness.provider(:auth).system_access) do |client|
         client.post("/v1/developers/#{user.uuid}").must_respond_with(status: 201)
       end
