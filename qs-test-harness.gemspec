@@ -38,7 +38,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'rack-client'
   gem.add_dependency 'uuid'
 
-  # gem.add_dependency 'auth-backend', "~> 0.0.45"
+  gem.add_dependency 'auth-backend', "~> 0.0.47"
   gem.add_dependency 'auth-client', '0.0.16'
   gem.add_dependency 'sqlite3'
   gem.add_dependency 'sinatra_warden', '0.3.2.qs2'
